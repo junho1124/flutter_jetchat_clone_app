@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_jetchat_clone_app/chat_page/chat_provider.dart';
 import 'package:flutter_jetchat_clone_app/fake_data.dart';
 import 'package:flutter_jetchat_clone_app/user_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => ChatProvider())
+  ],
+  child: MyApp(),));
 }
 
 class MyApp extends StatelessWidget {

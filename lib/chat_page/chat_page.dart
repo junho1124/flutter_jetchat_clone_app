@@ -19,7 +19,6 @@ class _ChatPageState extends State<ChatPage> {
   TextEditingController _controller = TextEditingController();
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _controller.dispose();
   }
