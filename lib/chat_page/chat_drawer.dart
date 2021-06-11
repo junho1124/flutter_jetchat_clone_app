@@ -10,6 +10,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+  bool _checked = true;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -34,21 +35,23 @@ class _MyDrawerState extends State<MyDrawer> {
               margin: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
-                color: context.read<ChatProvider>().drawerCheck
+                color: _checked
                     ? Color(0XFFDAE1F6)
                     : Colors.transparent,
               ),
               child: ListTile(
                 onTap: () {
-                    context.read<ChatProvider>().checked();
+                  setState(() {
+                  _checked = !_checked;
+                  });
                 },
                 leading: Icon(Icons.chat,
-                color: context.read<ChatProvider>().drawerCheck ? Color(0XFF1237E2) : Colors.black,
+                color: _checked ? Color(0XFF1237E2) : Colors.black,
                 size: 32,),
                 title: Text('Conversations',
                   style: TextStyle(
                     fontSize: 16,
-                    color: context.read<ChatProvider>().drawerCheck ? Color(0XFF1237E2) : Colors.black,
+                    color: _checked ? Color(0XFF1237E2) : Colors.black,
                   ),
                     ),
               ),
@@ -57,21 +60,23 @@ class _MyDrawerState extends State<MyDrawer> {
               margin: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
-                color: context.read<ChatProvider>().drawerCheck
+                color: _checked
                     ? Colors.transparent
                     : Color(0XFFDAE1F6),
               ),
               child: ListTile(
                 onTap: () {
-                  context.read<ChatProvider>().checked();
+                  setState(() {
+                  _checked = !_checked;
+                  });
                 },
                 leading: Icon(Icons.person_rounded,
-                color: context.read<ChatProvider>().drawerCheck ? Colors.black : Color(0XFF1237E2),
+                color: _checked ? Colors.black : Color(0XFF1237E2),
                 size: 32,),
                 title: Text('Profile',
                   style: TextStyle(
                     fontSize: 16,
-                    color: context.read<ChatProvider>().drawerCheck ? Colors.black: Color(0XFF1237E2) ,
+                    color: _checked ? Colors.black: Color(0XFF1237E2) ,
                   ),
                     ),
               ),
