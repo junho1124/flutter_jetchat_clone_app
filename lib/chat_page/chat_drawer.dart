@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_jetchat_clone_app/chat_page/chat_provider.dart';
-import 'package:provider/provider.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key key}) : super(key: key);
