@@ -3,14 +3,17 @@ import 'package:flutter_jetchat_clone_app/chat_page/chat_provider.dart';
 import 'package:provider/provider.dart';
 
 class ChattingBar extends StatelessWidget {
-  ChattingBar(this.controller, this.id);
+  ChattingBar(this.controller, this.user);
 
-  final int id;
+  final Map<dynamic, dynamic> user;
 
   final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
+
+    Map<int, dynamic> _chatInfo = {};
+
     return BottomAppBar(
       elevation: 0.0,
 
@@ -26,7 +29,21 @@ class ChattingBar extends StatelessWidget {
           Expanded(child: SizedBox()),
           TextButton(
               onPressed: () {
-              context.read<ChatProvider>().chatting[id] = controller.text;
+                if(controller.text == '') {
+                  return;
+                } else {
+                  _chatInfo[user['id']] = controller.text;
+                  context
+                      .read<ChatProvider>()
+                      .chatting[context
+                      .read<ChatProvider>()
+                      .chatNumber] = _chatInfo;
+                  context.read<ChatProvider>().nextChat();
+                  controller.text = '';
+                  print(context
+                      .read<ChatProvider>()
+                      .chatting);
+                }
               },
               child: Container(
                   decoration: BoxDecoration(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_jetchat_clone_app/chat_page/chat_drawer.dart';
 import 'buttom_app_bar.dart';
+import 'chat_appBar.dart';
+import 'make_chat.dart';
 
 class ChatPage extends StatefulWidget {
   ChatPage(this.user);
@@ -17,16 +20,17 @@ class _ChatPageState extends State<ChatPage> {
   final Map<dynamic, dynamic> user;
 
   TextEditingController _controller = TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      drawer: MyDrawer(),
+      drawer: MyDrawer(user),
       appBar: buildAppBar(),
       body: Stack(
         children: [
@@ -38,18 +42,41 @@ class _ChatPageState extends State<ChatPage> {
                 children: [
                   Expanded(
                       flex: 6,
-                      child: Container()
+                      child: SingleChildScrollView(
+                        child: Container(
+                          height: 1000,
+                          margin: EdgeInsets.all(8.0),
+                          child: Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ListView(
+                                  shrinkWrap: true,
+                                  reverse: true,
+                                  children: [
+                                    MakeChatCards(user: user)
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )),
+                  Divider(
+                    color: Colors.blueGrey,
                   ),
-                  Divider(color: Colors.blueGrey,),
                   TextFormField(
-                      decoration: InputDecoration(
-                          focusColor: Colors.transparent,
-                          hintText: '내용',
-                          border: InputBorder.none
-                      ),
+                    style: TextStyle(fontSize: 20),
+                    decoration: InputDecoration(
+                        focusColor: Colors.transparent,
+                        hintText: 'Message #conposers',
+                        border: InputBorder.none,
+                        fillColor: Colors.grey,
+                        hintStyle: TextStyle(fontSize: 20)),
                     controller: _controller,
                   ),
-                  ChattingBar(_controller, user['id']),
+                  SizedBox(height: 8.0),
+                  ChattingBar(_controller, user),
                 ],
               ),
             ),
@@ -57,31 +84,9 @@ class _ChatPageState extends State<ChatPage> {
         ],
       ),
     );
-
-
   }
 
-  AppBar buildAppBar() {
-    return AppBar(
-      centerTitle: true,
-      title: Column(
-        children: [
-          Text(
-            "#composers",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-          Text(
-            "8 members",
-            style: TextStyle(color: Colors.black, fontSize: 14),
-          ),
-        ],
-      ),
-      backgroundColor: Color.fromRGBO(255, 255, 255, 0.5),
-      elevation: 0.0,
-    );
-  }
+
 }
+
+
